@@ -9,4 +9,4 @@ RUN wget https://dl4jz3rbrsfum.cloudfront.net/software/powerpanel_132_amd64.deb 
 RUN ["chmod", "+x", "ups-api.py"]
 RUN ["chmod", "+x", "init.sh"]
 
-ENTRYPOINT "/src/init.sh"
+ENTRYPOINT ["/src/init.sh"]
