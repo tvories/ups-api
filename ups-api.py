@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 from flask import Flask, request
 from flask_restful import Resource, Api
 from json import dumps
@@ -29,7 +30,7 @@ class upsapi(Resource):
         only_digits_re = r"\D"
 
         ups = {}
-        for line in status:
+        for line in status.splitlines():
             if model_match in line:
                 ups['model_name'] = re.search(period_to_end, line).group().strip()
             if firmware_match in line:
@@ -48,7 +49,7 @@ class upsapi(Resource):
                 ups['battery_capacity'] = int(re.sub(only_digits_re, '', line))
             if load_watt_match in line:
                 ups['load_watt'] = int(re.search(load_watt_re, line).group().strip())
-        ups['load_percent'] = int(re.search(load_percent_re, line).group().strip())
+                ups['load_percent'] = int(re.search(load_percent_re, line).group().strip())
 
         return jsonify(ups)
 
